@@ -48,6 +48,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "arctic": "^3.7.0",
     "astro": "^5.14.5",
     "astro-themes": "^0.2.7",
     "class-variance-authority": "^0.7.1",

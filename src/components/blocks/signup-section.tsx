@@ -42,7 +42,13 @@ const SignupSection = () => {
                 <Button type="submit" className="mt-2 w-full">
                   Create an account
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    window.location.href = '/api/auth/google';
+                  }}
+                >
                   <FcGoogle className="mr-2 size-5" />
                   Sign up with Google
                 </Button>
