@@ -54,11 +54,10 @@ const imageURL = new URL(finalImage, Astro.url);
 
 <!-- Theme Script -->
 <script is:inline>
-  // Get theme from localStorage or system preference
+  // Get theme from localStorage or default to dark
   const savedTheme = localStorage.getItem('theme');
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const initialTheme = savedTheme || systemTheme;
-  
+  const initialTheme = savedTheme || 'dark';
+
   // Apply theme immediately to prevent flashing
   document.documentElement.classList.toggle('dark', initialTheme === 'dark');
 </script>
