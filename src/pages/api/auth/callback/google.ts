@@ -51,8 +51,8 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
       picture: googleUser.picture,
     });
 
-    // Redirect to the home page or dashboard
-    return redirect('/');
+    // Redirect to the dashboard
+    return redirect('/dashboard');
   } catch (error) {
     console.error('Error in Google OAuth callback:', error);
     return redirect('/login?error=auth_failed');

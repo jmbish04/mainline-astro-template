@@ -58,7 +58,7 @@ This template includes Google OAuth authentication. Follow these steps to set it
 2. Navigate to `/login` or `/signup`
 3. Click the "Sign in with Google" or "Sign up with Google" button
 4. Complete the Google authentication flow
-5. You should be redirected back to the home page
+5. You should be redirected to the `/dashboard` page with your profile information
 
 ## How It Works
 
@@ -70,7 +70,17 @@ The OAuth flow consists of:
 4. **Token Exchange**: The callback endpoint exchanges the code for access tokens
 5. **User Info**: Fetch user profile information from Google
 6. **Session Creation**: Create a secure session cookie with user data
-7. **Redirect**: Redirect the user to the home page
+7. **Redirect**: Redirect the user to the dashboard page
+
+## Available Pages and Endpoints
+
+- `/login` - Login page with Google OAuth button
+- `/signup` - Signup page with Google OAuth button
+- `/dashboard` - Protected page showing user profile (requires authentication)
+- `/api/auth/google` - Initiates Google OAuth flow
+- `/api/auth/callback/google` - Handles OAuth callback from Google
+- `/api/auth/user` - API endpoint to get current user info (returns JSON)
+- `/api/auth/logout` - Logout endpoint
 
 ## Session Management
 
@@ -100,6 +110,40 @@ export const GET: APIRoute = async ({ cookies }) => {
   }
   // ... your code
 };
+```
+
+## Protecting Routes
+
+To protect a route and require authentication, use the `getSessionUser` helper:
+
+```typescript
+---
+import { getSessionUser } from '@/lib/auth/session';
+
+const user = getSessionUser(Astro.cookies);
+
+// Redirect to login if not authenticated
+if (!user) {
+  return Astro.redirect('/login');
+}
+---
+
+<h1>Welcome, {user.name}!</h1>
+```
+
+## Fetching User Info from Client
+
+To fetch the current user's information from the client side:
+
+```typescript
+const response = await fetch('/api/auth/user');
+if (response.ok) {
+  const user = await response.json();
+  console.log(user);
+} else {
+  // User is not authenticated
+  window.location.href = '/login';
+}
 ```
 
 ## Logout
